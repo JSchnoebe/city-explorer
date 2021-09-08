@@ -21,7 +21,13 @@ class App extends React.Component {
     this.setState({ q, location: null });
 
     const url = `https://us1.locationiq.com/v1/search.php`;
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      params: {
+        key: process.env.REACT_APP_LOCATION_KEY,
+        q,
+        format: 'json',
+      }
+    });
     console.log(response);
 
     const location = response.data[0];
