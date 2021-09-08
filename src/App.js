@@ -7,9 +7,10 @@ class App extends React.Component {
 
   state = {
     q: null,
+    location: null,
   };
 
-  handleSearch = event => {
+  handleSearch = async event => {
     event.preventDefault();
 
     let form = event.target;
@@ -17,8 +18,16 @@ class App extends React.Component {
     let q = input.value;
     console.log(q);
 
-    this.setState({ q });
-  }
+    this.setState({ q, location: null });
+
+    const url = `https://us1.locationiq.com/v1/search.php`;
+    const response = await axios.get(url);
+    console.log(response);
+
+    const location = response.data[0];
+    this.setState({ location });
+  };
+
   render() {
     return (
       <div className="App">
@@ -33,8 +42,14 @@ class App extends React.Component {
           </div>
         </form>
 
-        {this.state.q && 
+        {this.state.q &&
+        <>
           <h2>Search: {this.state.q}</h2>
+          {this.state.location ?
+            <p>Display Name: {this.state.location.display_name}</p>
+            : <p>Loading...</p>
+          }
+          </>
         }
       </div>
     );
