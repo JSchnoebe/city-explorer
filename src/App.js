@@ -1,26 +1,44 @@
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> 
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  state = {
+    q: null,
+  };
+
+  handleSearch = event => {
+    event.preventDefault();
+
+    let form = event.target;
+    let input = form.elements.search;
+    let q = input.value;
+    console.log(q);
+
+    this.setState({ q });
+  }
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.handleSearch}>
+          <label>
+            Search for location:
+            {' '} {}
+            <input type="text" name="search" placeholder="Location" />
+          </label>
+          <div>
+            <button type="submit">Explore!</button>
+          </div>
+        </form>
+
+        {this.state.q && 
+          <h2>Search: {this.state.q}</h2>
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
