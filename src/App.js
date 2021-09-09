@@ -1,6 +1,7 @@
 import axios from 'axios';
 import './App.css';
 import React from 'react';
+// import Main from './components/main';
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -34,11 +35,16 @@ class App extends React.Component {
     const location = response.data[0];
     this.setState({ location });
 
-    this.getWeather();
+    this.getWeather(location);
   };
 
-  getWeather = async () => {
-    let response = await axios.get(`${apiURL}/weather`);
+  getWeather = async (location) => {
+    const response = await axios.get(`${apiURL}/weather`, {
+      params: {
+        lat: location.lat,
+        lon: location.lon,
+      },
+    });
     console.log(response);
   }
 
