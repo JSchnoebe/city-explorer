@@ -66,7 +66,8 @@ class App extends React.Component {
         <>
           <h2>Search: {this.state.q}</h2>
           {this.state.location ?
-            <p>Display Name: {this.state.location.display_name}</p>
+            <p>Display Name: {this.state.location.display_name}
+            ({this.state.location.lat},{this.state.location.lon})</p>
             : <p>Loading...</p>
           }
           </>
